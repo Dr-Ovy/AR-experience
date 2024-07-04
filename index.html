@@ -3,16 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebAR Project</title>
+    <title>WebAR Video Project</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
 </head>
 <body style="margin: 0; overflow: hidden;">
     <a-scene embedded arjs>
         <a-marker type="pattern" url="pattern-Marker TG.patt">
-            <a-video src="IlCapo personal message lawyer.mp4" width="4" height="2.25" position="0 1 0"></a-video>
+            <a-video src="IICapo personal message lawyer.mp4" width="4" height="2.25" position="0 1 0"></a-video>
         </a-marker>
         <a-entity camera></a-entity>
     </a-scene>
+    <script>
+        AFRAME.registerComponent('markerhandler', {
+            init: function () {
+                const marker = this.el;
+                const video = document.querySelector('a-video');
+
+                marker.addEventListener('markerFound', () => {
+                    video.components.material.material.map.image.play();
+                });
+
+                marker.addEventListener('markerLost', () => {
+                    video.components.material.material.map.image.pause();
+                });
+            }
+        });
+    </script>
 </body>
 </html>
